@@ -1,0 +1,18 @@
+Static visualizations:
+- map (map = the actual map + grid + geographical regions; grid and geographical regions are optional TRUE/FALSE)
+- map + antennas
+- map + antennas + RSS/ SDM
+- map + antennas + persons
+	- all persons
+	- persons with mobile devices
+	- subset of persons (selected by ids)
+- map + antennas + trajectories
+	- subset of persons (selected by ids); the subset should be limited to a small number of persons
+- map + antennas + emission probs
+- map + antennas + posterior location probs
+	- select one time instant + select one/multiple person
+- map + antennas + emission probs	
+Dynamic visualizations:
+- map + antennas + trajectories
+                - subset of persons (selected by ids); the subset should be limited to a small number of persons
+ 

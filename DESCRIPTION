@@ -12,21 +12,15 @@ License: EUPL
 LazyData: true
 Date: 2021-07-28
 Depends:
-    R (>= 3.5)
+    R (>= 4.0.0)
 Imports:
-    methods,
-    stats,
-    graphics,
-    sf (>= 0.6-3),
-    data.table,
-    magrittr,
-    parallel,
-    doParallel,
-    foreach,
-    ggplot2,
-    gridExtra,
-    leaflet,
-    raster
+    methods (>= 4.0.2),
+    stats (>= 4.0.2),
+    graphics (>= 4.0.2),
+    sf (>= 1.0-2),
+    data.table (>= 1.14.0),
+    rgeos (>= 0.5-5),
+    ggplot2 (>= 3.3.5)
 Suggests:
     lwgeom,
 	rmarkdown,

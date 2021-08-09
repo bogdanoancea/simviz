@@ -1,4 +1,4 @@
-Package: simziv
+Package: simviz
 Type: Package
 Title: Mobile network data visualizations
 Version: 0.1
@@ -11,6 +11,7 @@ Description: This package provides tools build different visualizations of simul
 License: EUPL
 LazyData: true
 Date: 2021-07-28
+Encoding: UTF-8
 Depends:
     R (>= 4.0.0)
 Imports:

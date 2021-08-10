@@ -5,8 +5,7 @@ Version: 0.1
 Authors@R: c(person("Bogdan", "Oancea", email="bogdan.oancea@gmail.com", role=c("aut", "cre")),
              person("David", "Salgado", email = "david.salgado.fernandez@ine.es", role = "aut", "cre"),
              person("Sandra", "Barragan", email = "sandra.barragan.andres@ine.es", role = "ctb"),
-             person("Marian", "Necula", email="marian.necula@insse.ro", role = "ctb"")
-             )
+             person("Marian", "Necula", email="marian.necula@insse.ro", role = "ctb"))
 Description: This package provides tools build different visualizations of simulated mobile network event data. Data set are produced with a software tool specially desgin for this purpose.
 License: EUPL
 LazyData: true

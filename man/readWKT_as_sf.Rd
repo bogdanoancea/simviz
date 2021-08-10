@@ -7,20 +7,21 @@
 readWKT_as_sf(text, id = NULL, p4s = NULL, ...)
 }
 \arguments{
-\item{text}{character string of WKT}
+\item{text}{Character string of WKT}
+
+\item{id}{Character vector of unique ids to label geometries as in function
+\code{rgeos::readWKT}. Length must match the number of subgeometries in the
+WKT}
 
 \item{p4s}{Either a character string or an object of class \code{CRS} as in
 the function \code{rgeos::readWKT}}
-
-\item{character}{vector of unique ids to label geometries as in function
-\code{rgeos::readWKT}. Length must match the number of subgeometries in the
-WKT}
 }
 \description{
 Read the input WKT string, parse it, and convert it into an sf object.
 }
 \examples{
-txt <- system.file("extdata", "map.wkt", package = "simviz")
-readWKT_as_sf <- readWKT_as_sf(txt)
+txt <- readLines(system.file("extdata", "map.wkt", package = "simviz"))
+map_polygon <- readWKT_as_sf(txt)
+class(map_polygon)
 
 }

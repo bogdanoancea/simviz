@@ -10,6 +10,9 @@
 #'
 #' @param p4s Either a character string or an object of class \code{CRS} as in
 #' the function \code{rgeos::readWKT}
+#' 
+#' @param ... passed on to \code{sf::st_as_sf}, might included named arguments
+#'  crs or precision
 #'
 #' @rdname readWKT_as_sf
 #'

@@ -2,12 +2,12 @@ Package: simviz
 Type: Package
 Title: Mobile network data visualizations
 Version: 0.1
-Authors@R: c(person("Bogdan", "Oancea", email="bogdan.oancea@gmail.com", role=c("aut", "cre")),
-             person("David", "Salgado", email = "david.salgado.fernandez@ine.es", role = "aut", "cre"),
-             person("Sandra", "Barragan", email = "sandra.barragan.andres@ine.es", role = "ctb"),
-             person("Marian", "Necula", email="marian.necula@insse.ro", role = "ctb"))
+Authors@R: c(person(given = "Bogdan", family = "Oancea", email="bogdan.oancea@gmail.com", role=c("aut", "cre")),
+             person(given = "David", family = "Salgado", email = "david.salgado.fernandez@ine.es", role = "aut", "cre"),
+             person(given = "Sandra", family = "Barragan", email = "sandra.barragan.andres@ine.es", role = "ctb"),
+             person(given = "Marian", family = "Necula", email="marian.necula@insse.ro", role = "ctb"))
 Description: This package provides tools build different visualizations of simulated mobile network event data. Data set are produced with a software tool specially desgin for this purpose.
-License: EUPL
+License: EUPL-1.2
 LazyData: true
 Date: 2021-07-28
 Encoding: UTF-8
@@ -20,7 +20,10 @@ Imports:
     sf (>= 1.0-2),
     data.table (>= 1.14.0),
     rgeos (>= 0.5-5),
-    ggplot2 (>= 3.3.5)
+    ggplot2 (>= 3.3.5),
+    tibble (>= 3.1.3),
+    readr (>= 2.0.0),
+    stars (>= 0.5-3)
 Suggests:
     lwgeom,
 	rmarkdown,
@@ -30,3 +33,9 @@ Suggests:
 URL: https://github.com/bogdanoancea/simviz
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
+Collate: 
+    'MNDmap.R'
+    'readWKT_as_sf.R'
+    'create_simElements.R'
+    'readWKT_as_sfc.R'
+    'xsd_attrs2dt.R'

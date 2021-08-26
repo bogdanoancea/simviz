@@ -15,6 +15,9 @@ WKT}
 
 \item{p4s}{Either a character string or an object of class \code{CRS} as in
 the function \code{rgeos::readWKT}}
+
+\item{...}{passed on to \code{sf::st_as_sf}, might included named arguments
+crs or precision}
 }
 \description{
 Read the input WKT string, parse it, and convert it into an sf object.

@@ -1,0 +1,33 @@
+<persons>
+	<specs_file>
+		<fileName>persons.csv</fileName>
+	</specs_file>
+	<specs_time type="Discrete">
+		<timeColName>t</timeColName>
+		<time_start>0</time_start>
+		<time_end>890</time_end>
+		<time_increment>10</time_increment>
+		<time_unit>s</time_unit>
+	</specs_time>
+	<specs_personID>
+		<personIDColName>x</personIDColName>
+		<value_type>unsignedInt</value_type>
+	</specs_personID>
+	<specs_person_coords>
+		<XColName>x</XColName>
+		<YColName>y</YColName>
+		<value_type>decimal</value_type>
+	</specs_person_coords>
+	<specs_tile>
+		<tileColName>TILE ID</tileColName>
+		<tileID_value_type>unsignedInt</tileID_value_type>
+	</specs_tile>
+	<specs_devices>
+		<devColName>Device 1</devColName>
+		<devID_value_type>integer</devID_value_type>
+	</specs_devices>
+		<specs_devices>
+		<devColName>Device 2</devColName>
+		<devID_value_type>integer</devID_value_type>
+	</specs_devices>
+</persons>

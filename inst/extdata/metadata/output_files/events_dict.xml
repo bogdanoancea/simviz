@@ -8,6 +8,7 @@
 		<time_end>890</time_end>
 		<time_increment>10</time_increment>
 		<time_unit>s</time_unit>
+		<value_type>integer</value_type>
 	</specs_time>
 	<specs_cells>
 		<cellIDColName>AntennaId</cellIDColName>

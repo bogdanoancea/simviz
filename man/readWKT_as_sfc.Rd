@@ -29,7 +29,7 @@ Read the input WKT string, parse it, and convert it into an sf geometry list
 column.
 }
 \examples{
-txt <- readLines(system.file("extdata", "map.wkt", package = "simviz"))
+txt <- readLines(system.file("extdata/input_files", "map.wkt", package = "simviz"))
 map_polygon_sfc <- readWKT_as_sfc(txt)
 class(map_polygon_sfc)
 

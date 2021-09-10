@@ -26,13 +26,20 @@ BTS, power, attenuation factor, etc.), the grid, the radio cells associated
 to each antenna, and the telecommunication signal measures (RSS, SDM, ...).
 }
 \examples{
-filename_map      <- system.file("extdata", "map.wkt", package = "simviz")
-filename_network  <- system.file("extdata", "antennas.csv", package = "simviz")
-filename_coverage <- system.file("extdata", "AntennaCells_MNO1.csv", package = "simviz")
-filename_grid     <- system.file("extdata", "grid.csv", package = "simviz")
-filename_individ  <- system.file("extdata", "persons.csv", package = "simviz")
+filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")
+filename_network  <- c(csv = system.file("extdata/output_files", "antennas.csv", package = "simviz"),
+                       xml = system.file("extdata/metadata/output_files", "antennas_dict.xml", package = "simviz"))
+                       
+filename_coverage <- c(csv = system.file("extdata/output_files", "AntennaCells_MNO1.csv", package = "simviz"),
+                       xml = system.file("extdata/metadata/output_files", "AntennaCells_dict.xml", package = "simviz"))
+                       
+filename_grid     <- system.file("extdata/output_files", "grid.csv", package = "simviz")
+
+filename_individ  <- c(csv = system.file("extdata/output_files", "persons.csv", package = "simviz"),
+                       xml = system.file("extdata/metadata/output_files", "persons_dict.xml", package = "simviz"))   
+                       
 filenames <- list(
-  map = filename_map,
+  map                = filename_map,
   network_parameters = filename_network,
   coverage_cells     = filename_coverage,
   grid               = filename_grid,

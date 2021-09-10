@@ -23,7 +23,7 @@ crs or precision}
 Read the input WKT string, parse it, and convert it into an sf object.
 }
 \examples{
-txt <- readLines(system.file("extdata", "map.wkt", package = "simviz"))
+txt <- readLines(system.file("extdata/input_files", "map.wkt", package = "simviz"))
 map_polygon <- readWKT_as_sf(txt)
 class(map_polygon)
 

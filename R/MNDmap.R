@@ -1,6 +1,6 @@
 #' Map underlying polygon.
 #'
-#' Map the udnerlying polygon representing the geographical territory as an
+#' Map the underlying polygon representing the geographical territory as an
 #'  \code{sf} object.
 #'
 #' @param map_polygon \code{sf} object with the polygon representing the 
@@ -11,7 +11,7 @@
 #' @name MNDmap
 #'
 #' @examples
-#' txt <- readLines(system.file("extdata", "map.wkt", package = "simviz"))
+#' txt <- readLines(system.file("extdata/input_files", "map.wkt", package = "simviz"))
 #' map_polygon <- readWKT_as_sf(txt)
 #' MNDmap(map_polygon)
 #'

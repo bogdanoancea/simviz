@@ -19,7 +19,7 @@
 #' @name readWKT_as_sfc
 #'
 #' @examples
-#' txt <- readLines(system.file("extdata", "map.wkt", package = "simviz"))
+#' txt <- readLines(system.file("extdata/input_files", "map.wkt", package = "simviz"))
 #' map_polygon_sfc <- readWKT_as_sfc(txt)
 #' class(map_polygon_sfc)
 #'

@@ -11,6 +11,7 @@ License: EUPL-1.2
 LazyData: true
 Date: 2021-07-28
 Encoding: UTF-8
+StagedInstall: no
 Depends:
     R (>= 4.0.0)
 Imports:
@@ -36,6 +37,8 @@ RoxygenNote: 7.1.1
 Collate: 
     'MNDmap.R'
     'readWKT_as_sf.R'
-    'create_simElements.R'
-    'readWKT_as_sfc.R'
     'xsd_attrs2dt.R'
+    'readWKT_as_sfc.R'
+    'create_simElements.R'
+    'example_graphics.R'
+    'xml_attrs2dt.R'

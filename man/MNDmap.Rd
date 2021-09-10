@@ -11,11 +11,11 @@ MNDmap(map_polygon)
 territory.}
 }
 \description{
-Map the udnerlying polygon representing the geographical territory as an
+Map the underlying polygon representing the geographical territory as an
  \code{sf} object.
 }
 \examples{
-txt <- readLines(system.file("extdata", "map.wkt", package = "simviz"))
+txt <- readLines(system.file("extdata/input_files", "map.wkt", package = "simviz"))
 map_polygon <- readWKT_as_sf(txt)
 MNDmap(map_polygon)
 

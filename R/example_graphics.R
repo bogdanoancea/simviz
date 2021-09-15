@@ -20,20 +20,16 @@ filenames <- list(
    
 
 simElem.list <- create_simElements(filenames, crs = 2062)
-    
-
-
-
-
 
 library(ggplot2)
 library(viridis)
 ggplot() +
-  geom_sf(data = simElem.list$map) +
+  geom_sf(data = simElem.list$map, size = 1.5) +
   geom_stars(data = simElem.list$grid, fill = NA) +
-  geom_sf(data = simElem.list$coverage, aes(fill = simElem.list$network$power), alpha = 0.3) +
+  geom_sf(data = simElem.list$coverage, aes(fill = simElem.list$network$power), alpha = 0.1) +
   geom_sf(data = simElem.list$network) +
   geom_sf_label(data = simElem.list$network, mapping = aes(label = `Antenna ID`), nudge_x = 1, nudge_y = 1) +
-  labs(fill = "power (dBm)") +
+  labs(fill = "power (dBm)", x = 'longitude', y = 'latitude') +
   scale_fill_viridis() +
   theme_bw()
+

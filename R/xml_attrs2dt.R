@@ -19,7 +19,6 @@
 #' xmlname <- system.file("extdata/metadata/input_files", "persons_dict.xml", package = "simviz") 
 #' xml_attrs2dt(xsdname, 'individuals')
 #' 
-
 xmlTypes2RTypes <- function(xmlType) {
   rType <- ''
   if(xmlType == 'integer') {
@@ -73,7 +72,7 @@ xml_attrs2dt <- function(xmlname, dataset){
     
   }
 
-  stop('[xml_attrs2dr] dataset not yet implemented.\n')
+  stop('[xml_attrs2dt] dataset not yet implemented.\n')
 }
 
 getCoordsNames <- function(xmlname, dataset) {

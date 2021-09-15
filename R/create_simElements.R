@@ -27,7 +27,7 @@
 #' 
 #' @importFrom tibble as_tibble 
 #' 
-#' @include readWKT_as_sf.R readWKT_as_sfc.R xsd_attrs2dt.R
+#' @include readWKT_as_sf.R readWKT_as_sfc.R xml_attrs2dt.R
 #' 
 #' @examples
 #' filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")

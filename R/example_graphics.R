@@ -23,13 +23,55 @@ simElem.list <- create_simElements(filenames, crs = 2062)
 
 library(ggplot2)
 library(viridis)
+library(stars)
+library(gganimate)
+
+# indiv.dt <- as.data.table(simElem.list$individuals)
+# indiv.dt[, t := as.numeric(t)]
+# indiv.dt[, x := as.numeric(x)]
+# indiv.dt[, y := as.numeric(y)]
+# indiv.dt[, nDev := fcase(
+#   is.na(`Device 1`) & is.na(`Device 2`), 0L,
+#   !is.na(`Device 1`) & is.na(`Device 2`), 1L,
+#   is.na(`Device 1`) & !is.na(`Device 2`), 1L,
+#   !is.na(`Device 1`) & !is.na(`Device 2`), 2L)]
+
 ggplot() +
   geom_sf(data = simElem.list$map, size = 1.5) +
   geom_stars(data = simElem.list$grid, fill = NA) +
   geom_sf(data = simElem.list$coverage, aes(fill = simElem.list$network$power), alpha = 0.1) +
   geom_sf(data = simElem.list$network) +
   geom_sf_label(data = simElem.list$network, mapping = aes(label = `Antenna ID`), nudge_x = 1, nudge_y = 1) +
-  labs(fill = "power (dBm)", x = 'longitude', y = 'latitude') +
+  geom_point(data = indiv.dt[t==0], mapping = aes(x, y, color = factor(nDev))) +
+  labs(fill = "power (dBm)") + 
+  labs(color = "Num. Devices", x = 'longitude', y = 'latitude') +
   scale_fill_viridis() +
   theme_bw()
+
+# install.packages("gganimate")
+# install.packages("transformr")
+
+anim <- ggplot() +
+          geom_sf(data = simElem.list$map, size = 1.5) +
+          geom_stars(data = simElem.list$grid, fill = NA) +
+          geom_sf(data = simElem.list$coverage, aes(fill = simElem.list$network$power), alpha = 0.1) +
+          geom_sf(data = simElem.list$network) +
+          geom_sf_label(data = simElem.list$network, mapping = aes(label = `Antenna ID`), nudge_x = 1, nudge_y = 1) +
+          geom_point(data = indiv.dt, mapping = aes(x, y, color = factor(nDev))) +
+          transition_states(states = t) +
+          labs(fill = "power (dBm)", color = "Num. Devices", x = 'longitude', y = 'latitude') +
+          scale_fill_viridis() +
+          theme_bw()
+
+times <- unique(indiv.dt[, t])
+
+gganimate::animate(
+  anim ,
+  fps = 4,
+  nframes = 2 * length(times),
+  renderer = gifski_renderer(file.path("C:", paste0("animate_example.gif")))
+)
+
+map1 <- MNDmap(simElem.list$map)
+map2 <- MNDmap_grid(map1, simElem.list$grid)
 

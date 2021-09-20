@@ -163,27 +163,39 @@ create_simElements <- function(filenames, id = NULL, crs = NA_integer_, ...){
     
   # Read individuals
   individuals.dt <- fread(filenames$individuals[['csv']], sep = '\n', stringsAsFactors = FALSE)
+  names_individuals.dt <- strsplit(names(individuals.dt), split=",")[[1]]
+  
   xmlParam.dt <- xml_attrs2dt(filenames$individuals['xml'], 'individuals')
   colnames_csv <- xmlParam.dt$name
-  xmlParam.dt <- xmlParam.dt[name %in% names(individuals.dt)]
+  xmlParam.dt <- xmlParam.dt[name %in% names_individuals.dt]
   classes_csv  <- xmlParam.dt$class
   names(classes_csv) <- xmlParam.dt$name
   classes_csv_num  <- classes_csv[which(classes_csv == 'numeric')]
   classes_csv_int  <- classes_csv[which(classes_csv == 'integer')]
   classes_csv_char <- classes_csv[which(classes_csv == 'character')]
-  if ( length(classes_csv_num) > 0 ) {
-    individuals.dt[, names(classes_csv_num) := lapply(.SD, as.numeric), .SDcols = names(classes_csv_num)]
-  }
-  if ( length(classes_csv_int) > 0 ) {
-    individuals.dt[, names(classes_csv_int) := lapply(.SD, as.integer), .SDcols = names(classes_csv_int)]
-  }
-  if ( length(classes_csv_char) > 0 ) {
-    individuals.dt[, names(classes_csv_char) := lapply(.SD, as.character), .SDcols = names(classes_csv_char)]
-  }
+  
   setnames(individuals.dt, 'V1')
   individuals_parsed.dt <- individuals.dt[, tstrsplit(V1, split = ',')]
   setnames(individuals_parsed.dt, colnames_csv)
-  individuals.df <- as_tibble(individuals_parsed.dt)
+  
+  
+  if ( length(classes_csv_num) > 0 ) {
+      individuals_parsed.dt[, names(classes_csv_num) := lapply(.SD, as.numeric), .SDcols = names(classes_csv_num)]
+  }
+  if ( length(classes_csv_int) > 0 ) {
+    individuals_parsed.dt[, names(classes_csv_int) := lapply(.SD, as.integer), .SDcols = names(classes_csv_int)]
+  }
+  if ( length(classes_csv_char) > 0 ) {
+    individuals_parsed.dt[, names(classes_csv_char) := lapply(.SD, as.character), .SDcols = names(classes_csv_char)]
+  }
+  
+  individuals_parsed.dt[, nDev := fcase(
+    is.na(`Device 1`) & is.na(`Device 2`), 0L,
+    !is.na(`Device 1`) & is.na(`Device 2`), 1L,
+    is.na(`Device 1`) & !is.na(`Device 2`), 1L,
+    !is.na(`Device 1`) & !is.na(`Device 2`), 2L)]
+  
+  individuals.df <- as.data.table(individuals_parsed.dt)
   
   simElements <- list(
     map = map_polygon,

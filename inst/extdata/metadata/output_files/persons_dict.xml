@@ -20,7 +20,7 @@
 		<value_type>decimal</value_type>
 	</specs_person_coords>
 	<specs_tile>
-		<tileColName>TILE ID</tileColName>
+		<tileColName>Tile ID</tileColName>
 		<tileID_value_type>unsignedInt</tileID_value_type>
 	</specs_tile>
 	<specs_devices>

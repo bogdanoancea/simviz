@@ -79,17 +79,21 @@ simviz <- function(simElem.list, control.map = list(),
                      
   }
   
-  if(!is.null(simElem.list$coverage) & !is.null(simElem.list$network) & control.coverage$fill == "power"){
+  if(!is.null(simElem.list$coverage) & !is.null(simElem.list$network) & !is.null(control.coverage$fill)){
     
-    p <- p + geom_sf(data = simElem.list$coverage, 
-                     aes(fill = simElem.list$network$power),
-                     alpha = control.coverage$alpha) +
-      labs(fill = "power (dBm)")
+    if(control.coverage$fill == "power"){
+    
+      p <- p + geom_sf(data = simElem.list$coverage, 
+                       aes(fill = simElem.list$network$power),
+                       alpha = control.coverage$alpha) +
+        labs(fill = "power (dBm)")
+      
+    }
     
   }
   
   if(!is.null(simElem.list$network)){
-    
+    print(control.network$label)
     p <- p +  geom_sf(data = simElem.list$network) +
       geom_sf_label(data = simElem.list$network, 
                     mapping = aes(label = control.network$label), 

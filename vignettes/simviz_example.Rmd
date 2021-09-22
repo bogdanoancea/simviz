@@ -1,0 +1,120 @@
+---
+title: "Example of use of simviz package"
+author: ""
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, echo=FALSE}
+library(simviz)
+library(ggplot2)
+library(viridis)
+library(stars)
+library(gganimate)
+```
+
+
+
+# Visualization of simulator outputs
+
+Read and prepare data
+
+```{r}
+filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")
+filename_network  <- c(csv = system.file("extdata/output_files", "antennas.csv", package = "simviz"),
+                        xml = system.file("extdata/metadata/output_files", "antennas_dict.xml", package = "simviz"))
+                        
+filename_coverage <- c(csv = system.file("extdata/output_files", "AntennaCells_MNO1.csv", package = "simviz"),
+                        xml = system.file("extdata/metadata/output_files", "AntennaCells_dict.xml", package = "simviz"))
+                        
+filename_grid     <- c(csv = system.file("extdata/output_files", "grid.csv", package = "simviz"),
+                       xml = system.file("extdata/metadata/output_files", "grid_dict.xml", package = "simviz"))
+ 
+filename_individ  <- c(csv = system.file("extdata/output_files", "persons.csv", package = "simviz"),
+                        xml = system.file("extdata/metadata/output_files", "persons_dict.xml", package = "simviz"))   
+                        
+filenames <- list(
+   map                = filename_map,
+   network_parameters = filename_network,
+   coverage_cells     = filename_coverage,
+   grid               = filename_grid,
+   individuals        = filename_individ)
+   
+
+simElem.list <- create_simElements(filenames, crs = 2062)
+```
+
+
+## Static example
+
+
+### Visualize the territory and the network
+
+```{r}
+territory.list <- list(map = simElem.list$map,
+                  grid = simElem.list$grid)
+
+simviz(territory.list, control.map = list(size = 1.5),
+       control.grid = list(fill = NA))
+
+```
+### Visualize the network information 
+
+```{r}
+territory_network.list <- simElem.list
+territory_network.list$individuals <- NULL
+
+simviz(territory_network.list, control.map = list(size = 1.5),
+       control.grid = list(fill = NA),
+       control.coverage = list(alpha = 0.1, fill = "power"),
+       control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1))
+
+```
+
+### Visualize all the information about the ground truth
+
+```{r}
+simviz(simElem.list, control.map = list(size = 1.5),
+       control.grid = list(fill = NA),
+       control.coverage = list(alpha = 0.1, fill = "power"),
+       control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
+       control.individuals = list(t = 0, animate = FALSE))
+```
+
+
+## Dinamic example
+
+### Generate an animation along time
+
+```{r}
+
+anim1 <- simviz(simElem.list, control.map = list(size = 1.5),
+       control.grid = list(fill = NA),
+       control.coverage = list(alpha = 0.1, fill = "power"),
+       control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
+       control.individuals = list(animate = TRUE))
+
+times <- unique(simElem.list$individuals[, t])
+
+# gganimate::animate(
+#   anim1 ,
+#   fps = 4,
+#   nframes = 2 * length(times),
+#   renderer = gifski_renderer(file.path("C:", paste0("animate_example.gif")))
+# )
+```
+
+
+# Visualization of model outputs
+(In progress)

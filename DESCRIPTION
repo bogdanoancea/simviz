@@ -41,3 +41,6 @@ Collate:
     'readWKT_as_sfc.R'
     'create_simElements.R'
     'example_graphics.R'
+    'MNDmap_grid.R'
+    'MNDmap_networkCells.R'
+    'simviz.R'

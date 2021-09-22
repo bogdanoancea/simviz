@@ -42,7 +42,7 @@ ggplot() +
   geom_sf(data = simElem.list$coverage, aes(fill = simElem.list$network$power), alpha = 0.1) +
   geom_sf(data = simElem.list$network) +
   geom_sf_label(data = simElem.list$network, mapping = aes(label = `Antenna ID`), nudge_x = 1, nudge_y = 1) +
-  geom_point(data = indiv.dt[t==0], mapping = aes(x, y, color = factor(nDev))) +
+  geom_point(data = simElem.list$individuals[t==0], mapping = aes(x, y, color = factor(nDev))) +
   labs(fill = "power (dBm)") + 
   labs(color = "Num. Devices", x = 'longitude', y = 'latitude') +
   scale_fill_viridis() +
@@ -57,20 +57,20 @@ anim <- ggplot() +
           geom_sf(data = simElem.list$coverage, aes(fill = simElem.list$network$power), alpha = 0.1) +
           geom_sf(data = simElem.list$network) +
           geom_sf_label(data = simElem.list$network, mapping = aes(label = `Antenna ID`), nudge_x = 1, nudge_y = 1) +
-          geom_point(data = indiv.dt, mapping = aes(x, y, color = factor(nDev))) +
+          geom_point(data = simElem.list$individuals, mapping = aes(x, y, color = factor(nDev))) +
           transition_states(states = t) +
           labs(fill = "power (dBm)", color = "Num. Devices", x = 'longitude', y = 'latitude') +
           scale_fill_viridis() +
           theme_bw()
 
-times <- unique(indiv.dt[, t])
+times <- unique(simElem.list$individuals[, t])
 
-gganimate::animate(
-  anim ,
-  fps = 4,
-  nframes = 2 * length(times),
-  renderer = gifski_renderer(file.path("C:", paste0("animate_example.gif")))
-)
+# gganimate::animate(
+#   anim ,
+#   fps = 4,
+#   nframes = 2 * length(times),
+#   renderer = gifski_renderer(file.path("C:", paste0("animate_example.gif")))
+# )
 
 map1 <- MNDmap(simElem.list$map)
 map2 <- MNDmap_grid(map1, simElem.list$grid)

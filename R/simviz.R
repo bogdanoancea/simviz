@@ -96,7 +96,7 @@ simviz <- function(simElem.list, control.map = list(),
     print(control.network$label)
     p <- p +  geom_sf(data = simElem.list$network) +
       geom_sf_label(data = simElem.list$network, 
-                    mapping = aes(label = control.network$label), 
+                    mapping = aes(label = get(control.network$label)), 
                     nudge_x = control.network$nudge_x, nudge_y = control.network$nudge_y)
       
   }

@@ -1,3 +1,9 @@
+library(ggplot2)
+library(viridis)
+library(stars)
+library(gganimate)
+
+
 filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")
 filename_network  <- c(csv = system.file("extdata/output_files", "antennas.csv", package = "simviz"),
                         xml = system.file("extdata/metadata/output_files", "antennas_dict.xml", package = "simviz"))
@@ -21,20 +27,7 @@ filenames <- list(
 
 simElem.list <- create_simElements(filenames, crs = 2062)
 
-library(ggplot2)
-library(viridis)
-library(stars)
-library(gganimate)
 
-# indiv.dt <- as.data.table(simElem.list$individuals)
-# indiv.dt[, t := as.numeric(t)]
-# indiv.dt[, x := as.numeric(x)]
-# indiv.dt[, y := as.numeric(y)]
-# indiv.dt[, nDev := fcase(
-#   is.na(`Device 1`) & is.na(`Device 2`), 0L,
-#   !is.na(`Device 1`) & is.na(`Device 2`), 1L,
-#   is.na(`Device 1`) & !is.na(`Device 2`), 1L,
-#   !is.na(`Device 1`) & !is.na(`Device 2`), 2L)]
 
 ggplot() +
   geom_sf(data = simElem.list$map, size = 1.5) +
@@ -48,8 +41,6 @@ ggplot() +
   scale_fill_viridis() +
   theme_bw()
 
-# install.packages("gganimate")
-# install.packages("transformr")
 
 anim <- ggplot() +
           geom_sf(data = simElem.list$map, size = 1.5) +
@@ -72,6 +63,6 @@ times <- unique(simElem.list$individuals[, t])
 #   renderer = gifski_renderer(file.path("C:", paste0("animate_example.gif")))
 # )
 
-map1 <- MNDmap(simElem.list$map)
-map2 <- MNDmap_grid(map1, simElem.list$grid)
+# map1 <- MNDmap(simElem.list$map)
+# map2 <- MNDmap_grid(map1, simElem.list$grid)
 

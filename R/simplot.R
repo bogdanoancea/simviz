@@ -16,10 +16,12 @@
 #' @param control.coverage a list with the visualization parameters for the coverage object.
 #' 
 #' @param control.individuals a list with the visualization parameters for the individuals object.
+#' 
+#' @return It returns an object of class \code{ggplot} with the graph.
 #'
-#' @rdname simviz
+#' @rdname simplot
 #'
-#' @name simviz
+#' @name simplot
 #'
 #' @examples
 #' filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")
@@ -44,16 +46,16 @@
 #'
 #' simElem.list <- create_simElements(filenames, crs = 2062)
 #' 
-#' simviz(simElem.list, control.map = list(size = 1.5),
+#' simplot(simElem.list, control.map = list(size = 1.5),
 #' control.grid = list(fill = NA),
 #' control.coverage = list(alpha = 0.1, fill = "power"),
-#' control.network = list(label = `Antenna ID`, nudge_x = 1, nudge_y = 1),
+#' control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
 #' control.individuals = list(t = 0, animate = FALSE))
 #'
-#' @import ggplot2 stars
+#' @import ggplot2 stars gganimate viridis
 #'
 #' @export
-simviz <- function(simElem.list, control.map = list(),
+simplot <- function(simElem.list, control.map = list(),
                    control.grid = list(),
                    control.network = list(),
                    control.coverage = list(),

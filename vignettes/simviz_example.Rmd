@@ -28,21 +28,37 @@ library(gganimate)
 
 # Visualization of simulator outputs
 
-Read and prepare data
+In this document it is shown how to do the visualization of the object from the simulator of MNO data with the tools in simviz package. Some simple examples are executed in the following.
+
+First of all the reading of the data that can be done with the function \code{create_simElements} which returns a list with the following elements:
+
+ - \code{map}: a WKT object with the map.
+ - \code{network}: an object of class \linkS4class{sf} with the information about the network.
+ - \code{coverage}: an object of class \linkS4class{sf} with the information about the coverage.
+ - \code{grid}: an object of class \linkS4class{stars} with the information about the grid.
+ - \code{individuals}: an object of class \linkS4class{data.table} with the information about the individuals.
+
 
 ```{r}
-filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")
-filename_network  <- c(csv = system.file("extdata/output_files", "antennas.csv", package = "simviz"),
-                        xml = system.file("extdata/metadata/output_files", "antennas_dict.xml", package = "simviz"))
+filename_map      <- system.file("extdata/input_files", "map.wkt", 
+                                 package = "simviz")
+filename_network  <- c(csv = system.file("extdata/output_files", "antennas.csv", 
+                                         package = "simviz"),
+                        xml = system.file("extdata/metadata/output_files", "antennas_dict.xml", 
+                                          package = "simviz"))
                         
-filename_coverage <- c(csv = system.file("extdata/output_files", "AntennaCells_MNO1.csv", package = "simviz"),
-                        xml = system.file("extdata/metadata/output_files", "AntennaCells_dict.xml", package = "simviz"))
+filename_coverage <- c(csv = system.file("extdata/output_files", "AntennaCells_MNO1.csv", 
+                                         package = "simviz"),
+                        xml = system.file("extdata/metadata/output_files", "AntennaCells_dict.xml", 
+                                          package = "simviz"))
                         
 filename_grid     <- c(csv = system.file("extdata/output_files", "grid.csv", package = "simviz"),
-                       xml = system.file("extdata/metadata/output_files", "grid_dict.xml", package = "simviz"))
+                       xml = system.file("extdata/metadata/output_files", "grid_dict.xml", 
+                                         package = "simviz"))
  
 filename_individ  <- c(csv = system.file("extdata/output_files", "persons.csv", package = "simviz"),
-                        xml = system.file("extdata/metadata/output_files", "persons_dict.xml", package = "simviz"))   
+                        xml = system.file("extdata/metadata/output_files", "persons_dict.xml", 
+                                          package = "simviz"))   
                         
 filenames <- list(
    map                = filename_map,
@@ -65,17 +81,18 @@ simElem.list <- create_simElements(filenames, crs = 2062)
 territory.list <- list(map = simElem.list$map,
                   grid = simElem.list$grid)
 
-simviz(territory.list, control.map = list(size = 1.5),
+simplot(territory.list, control.map = list(size = 1.5),
        control.grid = list(fill = NA))
 
 ```
+
 ### Visualize the network information 
 
 ```{r}
 territory_network.list <- simElem.list
 territory_network.list$individuals <- NULL
 
-simviz(territory_network.list, control.map = list(size = 1.5),
+simplot(territory_network.list, control.map = list(size = 1.5),
        control.grid = list(fill = NA),
        control.coverage = list(alpha = 0.1, fill = "power"),
        control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1))
@@ -85,11 +102,26 @@ simviz(territory_network.list, control.map = list(size = 1.5),
 ### Visualize all the information about the ground truth
 
 ```{r}
-simviz(simElem.list, control.map = list(size = 1.5),
+simplot(simElem.list, control.map = list(size = 1.5),
        control.grid = list(fill = NA),
        control.coverage = list(alpha = 0.1, fill = "power"),
        control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
        control.individuals = list(t = 0, animate = FALSE))
+```
+
+The previous code is equivalent to do the following:
+```{r eval=FALSE, include=TRUE}
+ggplot() +
+  geom_sf(data = simElem.list$map, size = 1.5) +
+  geom_stars(data = simElem.list$grid, fill = NA) +
+  geom_sf(data = simElem.list$coverage, aes(fill = simElem.list$network$power), alpha = 0.1) +
+  geom_sf(data = simElem.list$network) +
+  geom_sf_label(data = simElem.list$network, mapping = aes(label = `Antenna ID`), nudge_x = 1, nudge_y = 1) +
+  geom_point(data = simElem.list$individuals[t==0], mapping = aes(x, y, color = factor(nDev))) +
+  labs(fill = "power (dBm)") + 
+  labs(color = "Num. Devices", x = 'longitude', y = 'latitude') +
+  scale_fill_viridis() +
+  theme_bw()
 ```
 
 
@@ -99,7 +131,7 @@ simviz(simElem.list, control.map = list(size = 1.5),
 
 ```{r}
 
-anim1 <- simviz(simElem.list, control.map = list(size = 1.5),
+anim1 <- simplot(simElem.list, control.map = list(size = 1.5),
        control.grid = list(fill = NA),
        control.coverage = list(alpha = 0.1, fill = "power"),
        control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),

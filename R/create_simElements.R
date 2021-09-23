@@ -16,6 +16,18 @@
 #' 
 #' @param ... passed on to \code{sf::st_as_sf}, might include named arguments
 #'  crs or precision
+#'  
+#' @return A list with the following elements:
+#' 
+#' - \code{map}: a WKT object with the map.
+#' - \code{network}: an object of class \linkS4class{sf} with the information about
+#' the network.
+#' - \code{coverage}: an object of class \linkS4class{sf} with the information about
+#' the coverage.
+#' - \code{grid}: an object of class \linkS4class{stars} with the information about
+#' the grid.
+#' - \code{individuals}: an object of class \linkS4class{data.table} with the information about
+#' the individuals.
 #'
 #' @rdname create_simElements
 #'
@@ -24,8 +36,6 @@
 #' @import sf data.table stars
 #' 
 #' @importFrom readr read_delim
-#' 
-#' @importFrom tibble as_tibble 
 #' 
 #' @include readWKT_as_sf.R readWKT_as_sfc.R xml_attrs2dt.R
 #' 

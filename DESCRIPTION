@@ -22,7 +22,6 @@ Imports:
     data.table (>= 1.14.0),
     rgeos (>= 0.5-5),
     ggplot2 (>= 3.3.5),
-    tibble (>= 3.1.3),
     readr (>= 2.0.0),
     stars (>= 0.5-3),
     viridis (>= 0.6.1),
@@ -37,9 +36,6 @@ Suggests:
     tmap
 URL: https://github.com/bogdanoancea/simviz
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate: 
-    'xml_attrs2dt.R'
-    'readWKT_as_sf.R'
-    'readWKT_as_sfc.R'
     'simplot.R'

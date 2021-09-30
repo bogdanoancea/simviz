@@ -2,6 +2,7 @@ library(ggplot2)
 library(viridis)
 library(stars)
 library(gganimate)
+library(simutils)
 
 
 filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")
@@ -25,7 +26,7 @@ filenames <- list(
    individuals        = filename_individ)
    
 
-simElem.list <- create_simElements(filenames, crs = 2062)
+simElem.list <- simutils::create_simElements(filenames, crs = 2062)
 
 
 

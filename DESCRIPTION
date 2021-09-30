@@ -36,7 +36,7 @@ Suggests:
     tmap
 URL: https://github.com/bogdanoancea/simviz
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate: 
     'readWKT_as_sf.R'
     'xml_attrs2dt.R'

@@ -29,6 +29,9 @@ fill, ...}
 \item{simElements}{a list with the output objects from the simulator created 
 by the \code{create_simElements} function.}
 }
+\value{
+It returns an object of class \code{ggplot} with the graph.
+}
 \description{
 Make the visualization of the objects obtained from the MNO data simulator.
 }

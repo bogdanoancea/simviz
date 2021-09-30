@@ -19,6 +19,19 @@ as in function \code{sf::st_as_sfc}}
 \item{...}{passed on to \code{sf::st_as_sf}, might include named arguments
 crs or precision}
 }
+\value{
+A list with the following elements:
+
+- \code{map}: a WKT object with the map.
+- \code{network}: an object of class \linkS4class{sf} with the information about
+the network.
+- \code{coverage}: an object of class \linkS4class{sf} with the information about
+the coverage.
+- \code{grid}: an object of class \linkS4class{stars} with the information about
+the grid.
+- \code{individuals}: an object of class \linkS4class{data.table} with the information about
+the individuals.
+}
 \description{
 Create a named list of different elements for the simulation. It basically
 contains the map (regions included), the network configuration (position of 

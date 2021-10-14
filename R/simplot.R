@@ -61,7 +61,7 @@ simplot <- function(simElem.list, control.map = list(),
                    control.network = list(),
                    control.coverage = list(),
                    control.individuals = list(animate = FALSE)){
-  
+
   if(is.null(simElem.list$map)){
     stop("It is mandatory to have a map of the terrotory for the visualization.")
   }
@@ -96,8 +96,8 @@ simplot <- function(simElem.list, control.map = list(),
   }
   
   if(!is.null(simElem.list$network)){
-    print(control.network$label)
-    p <- p +  geom_sf(data = simElem.list$network) +
+    
+      p <- p +  geom_sf(data = simElem.list$network) +
       geom_sf_label(data = simElem.list$network, 
                     mapping = aes(label = get(control.network$label)), 
                     nudge_x = control.network$nudge_x, nudge_y = control.network$nudge_y)
@@ -111,7 +111,7 @@ simplot <- function(simElem.list, control.map = list(),
     }
     if(!is.null(control.individuals$t) & !control.individuals$animate){
       
-      p <- p + geom_point(data = simElem.list$individuals[t == control.individuals$t], 
+      p <- p + geom_point(data = simElem.list$individuals[abs(t - control.individuals$t) < .Machine$double.eps], 
                           mapping = aes(x, y, color = factor(nDev))) +
         labs(color = "Num. Devices")
       

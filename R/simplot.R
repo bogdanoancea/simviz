@@ -44,13 +44,13 @@
 #'  grid               = filename_grid,
 #'  individuals        = filename_individ)
 #'
-#' simElem.list <- create_simElements(filenames, crs = 2062)
+#' simElem.list <- simutils::create_simElements(filenames, crs = 2062)
 #' 
 #' simplot(simElem.list, control.map = list(size = 1.5),
-#' control.grid = list(fill = NA),
-#' control.coverage = list(alpha = 0.1, fill = "power"),
-#' control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
-#' control.individuals = list(t = 0, animate = FALSE))
+#'    control.grid = list(fill = NA),
+#'    control.coverage = list(alpha = 0.1, fill = "power"),
+#'    control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
+#'    control.individuals = list(t = 0, animate = FALSE))
 #'
 #' @import ggplot2 stars gganimate viridis
 #'
@@ -60,7 +60,7 @@ simplot <- function(simElem.list, control.map = list(),
                    control.network = list(),
                    control.coverage = list(),
                    control.individuals = list(animate = FALSE)){
-  
+
   if(is.null(simElem.list$map)){
     stop("It is mandatory to have a map of the terrotory for the visualization.")
   }
@@ -109,7 +109,7 @@ simplot <- function(simElem.list, control.map = list(),
       stop("A specific time must be set or animate = TRUE")
     }
     if(!is.null(control.individuals$t) & !control.individuals$animate){
-
+      
       p <- p + geom_point(data = simElem.list$individuals[abs(t - control.individuals$t) < .Machine$double.eps], 
                           mapping = aes(x, y, color = factor(nDev))) +
         labs(color = "Num. Devices")

@@ -52,7 +52,7 @@
 #'    control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
 #'    control.individuals = list(t = 0, animate = FALSE))
 #'
-#' @import ggplot2 stars gganimate viridis
+#' @import ggplot2 stars gganimate viridis data.table
 #'
 #' @export
 simplot <- function(simElem.list, control.map = list(),
@@ -106,7 +106,9 @@ simplot <- function(simElem.list, control.map = list(),
   if(!is.null(simElem.list$individuals)){
     
     if(is.null(control.individuals$t) & !control.individuals$animate){
+      
       stop("A specific time must be set or animate = TRUE")
+      
     }
     if(!is.null(control.individuals$t) & !control.individuals$animate){
       

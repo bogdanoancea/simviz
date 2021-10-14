@@ -44,13 +44,14 @@
 #'  grid               = filename_grid,
 #'  individuals        = filename_individ)
 #'
-#' simElem.list <- create_simElements(filenames, crs = 2062)
+#' simElem.list <- simutils::create_simElements(filenames, crs = 2062)
 #' 
-#' simplot(simElem.list, control.map = list(size = 1.5),
-#' control.grid = list(fill = NA),
-#' control.coverage = list(alpha = 0.1, fill = "power"),
-#' control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
-#' control.individuals = list(t = 0, animate = FALSE))
+#' simplot(simElem.list, 
+#'    control.map = list(size = 1.5),
+#'    control.grid = list(fill = NA),
+#'    control.coverage = list(alpha = 0.1, fill = "power"),
+#'    control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
+#'    control.individuals = list(t = 0, animate = FALSE))
 #'
 #' @import ggplot2 stars gganimate viridis
 #'

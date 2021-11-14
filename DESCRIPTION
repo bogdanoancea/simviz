@@ -29,4 +29,4 @@ Suggests:
     tmap
 URL: https://github.com/bogdanoancea/simviz
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

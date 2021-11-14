@@ -1,0 +1,43 @@
+<events>
+	<specs_file>
+		<fileName>AntennaInfo_MNO_MNO1.csv</fileName>
+	</specs_file>
+	<specs_time type="Discrete">
+		<timeColName>t</timeColName>
+		<time_start>0</time_start>
+		<time_end>890</time_end>
+		<time_increment>10</time_increment>
+		<time_unit>s</time_unit>
+		<value_type>integer</value_type>
+	</specs_time>
+	<specs_cells>
+		<cellIDColName>AntennaId</cellIDColName>
+		<cellID_value_type>string</cellID_value_type>
+	</specs_cells>
+	<specs_event>
+		<eventCodeColName>EventCode</eventCodeColName>
+		<value_type>unsignedInt</value_type>
+	</specs_event>	
+	<specs_devices>
+		<devColName>PhoneId</devColName>
+		<devID_value_type>integer</devID_value_type>
+	</specs_devices>
+	<specs_network>
+		<networkTypeColName>NetworkType</networkTypeColName>
+		<value_type>string</value_type>
+	</specs_network>
+	<specs_TA>
+		<TAColName>TA</TAColName>
+		<value_type>unsignedInt</value_type>
+	</specs_TA>
+	<specs_event_coords>
+		<XColName>x</XColName>
+		<YColName>y</YColName>
+		<value_type>decimal</value_type>
+	</specs_event_coords>
+	<specs_tile>
+		<tileColName>TileId</tileColName>
+		<tileID_value_type>unsignedInt</tileID_value_type>
+	</specs_tile>
+
+</events>

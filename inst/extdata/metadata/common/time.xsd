@@ -41,7 +41,7 @@
 				<xs:element name="time_end" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
 				<xs:element name="time_increment" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
 				<xs:element name="time_unit" type = "time_units" minOccurs="1" maxOccurs="1"/>
-				<xs:element name="value_type" minOccurs = "1", maxOccurs = "1">
+				<xs:element name="value_type" minOccurs = "1" maxOccurs = "1">
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
 							<xs:enumeration value="decimal"/>

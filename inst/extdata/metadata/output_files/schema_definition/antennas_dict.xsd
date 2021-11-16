@@ -126,7 +126,6 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>			
-
 			<xs:element name="specs_SSteep" minOccurs="1" maxOccurs="1">
 				<xs:complexType>
 					<xs:sequence>
@@ -241,7 +240,6 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>			
-
 			<xs:element name="specs_tile" type = "tile_type" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
     </xs:complexType>

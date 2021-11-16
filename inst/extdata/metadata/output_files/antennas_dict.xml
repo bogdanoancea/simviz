@@ -11,7 +11,7 @@
 		<value_type>integer</value_type>
 	</specs_time>
 	<specs_cells>
-		<cellIDColName>CellID</cellIDColName>
+		<cellIDColName>Antenna ID</cellIDColName>
 		<cellID_value_type>string</cellID_value_type>
 	</specs_cells>
 	<specs_antenna_coords>
@@ -26,7 +26,7 @@
 		<name_value_type>string</name_value_type>
 	</specs_mno>
 	<specs_max_connection>
-		<maxConnColName>max_connection</maxConnColName>
+		<maxConnColName>maxconnection</maxConnColName>
 		<value_type>integer</value_type>
 	</specs_max_connection>
 	<specs_power>
@@ -86,7 +86,7 @@
 		<value_type>decimal</value_type>
 	</specs_z>
 	<specs_tile>
-		<tileColName>TILE ID</tileColName>
+		<tileColName>Tile ID</tileColName>
 		<tileID_value_type>unsignedInt</tileID_value_type>
 	</specs_tile>
 

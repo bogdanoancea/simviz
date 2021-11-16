@@ -3,10 +3,10 @@
 			<fileName>AntennaCells_MNO1.csv</fileName>
 		</specs_file>
 		<specs_mno>
-			<name>mno1</name>
+			<name>MNO1</name>
 		</specs_mno>
 		<specs_cellIDs>
-			<cellIDColName>CellID</cellIDColName>
+			<cellIDColName>AntennaId</cellIDColName>
 			<cellID_value_type>string</cellID_value_type>
 		</specs_cellIDs>
 		<specs_cellcoords>

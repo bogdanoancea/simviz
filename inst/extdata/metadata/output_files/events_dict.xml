@@ -19,7 +19,7 @@
 		<value_type>unsignedInt</value_type>
 	</specs_event>	
 	<specs_devices>
-		<devColName>DeviceID</devColName>
+		<devColName>PhoneId</devColName>
 		<devID_value_type>integer</devID_value_type>
 	</specs_devices>
 	<specs_network>

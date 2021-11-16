@@ -1,0 +1,30 @@
+<persons>
+	<specs_file>
+		<fileName>persons_dash.csv</fileName>
+	</specs_file>
+	<specs_time type="Discrete">
+		<timeColName>t</timeColName>
+		<time_start>0</time_start>
+		<time_end>890</time_end>
+		<time_increment>10</time_increment>
+		<time_unit>s</time_unit>
+		<value_type>integer</value_type>
+	</specs_time>
+	<specs_personID>
+		<personIDColName>Person ID</personIDColName>
+		<value_type>unsignedInt</value_type>
+	</specs_personID>
+	<specs_person_coords>
+		<XColName>x</XColName>
+		<YColName>y</YColName>
+		<value_type>decimal</value_type>
+	</specs_person_coords>
+	<specs_tile>
+		<tileColName>TILE ID</tileColName>
+		<tileID_value_type>unsignedInt</tileID_value_type>
+	</specs_tile>
+	<specs_devices>
+		<devColName>Mobile Phone(s) ID</devColName>
+		<devID_value_type>string</devID_value_type>
+	</specs_devices>
+</persons>

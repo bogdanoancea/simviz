@@ -39,6 +39,7 @@ VignetteBuilder: knitr
 RoxygenNote: 7.1.2
 Collate: 
     'simplot.R'
-    'simplot_territory.R'
-    'simplot_network.R'
-    'simplot_individuals.R'
+    'simPlot_territory.R'
+    'simPlot_network.R'
+    'simPlot_individuals.R'
+    'simAnimate_individuals.R'

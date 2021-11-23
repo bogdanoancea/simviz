@@ -14,9 +14,9 @@
 #'  
 #' @return It returns an object of class \code{ggplot} with the graph.
 #'
-#' @rdname simplot_territory
+#' @rdname simPlot_territory
 #'
-#' @name simplot_territory
+#' @name simPlot_territory
 #'
 #' @examples
 #' filename_map      <- c(xml= system.file("extdata/input_files", "map.xml", package = "simutils"),  xsd= '')
@@ -45,7 +45,7 @@
 #'
 #'simData <- read_simData(filenames, crs = 2062)
 #'
-#'simplot_territory(simData, 
+#'simPlot_territory(simData, 
 #'                  aggre_level = 1, 
 #'                  aggre_name = "Regions", 
 #'                  plot_title = 'Territorial map for simulation')
@@ -54,7 +54,7 @@
 #' @import simutils ggplot2 stars sf data.table dplyr
 #'
 #' @export
-simplot_territory <- function(simData.list, aggre_level, aggre_name, plot_title){
+simPlot_territory <- function(simData.list, aggre_level, aggre_name, plot_title){
 
   if(is.null(simData.list$map)){
     stop("It is mandatory to have a map of the territory for the visualization.")

@@ -6,7 +6,7 @@
 #' @param simData.list a list with the objects from the simulator created 
 #' by the \code{read_simData} function from simutils R package.
 #' 
-#' @param time numeric, the specific time to be plotted.
+#' @param time numeric vector, the specific time to be plotted.
 #' 
 #' @param size numeric, parameter of geom_sf().
 #' 
@@ -18,9 +18,9 @@
 #' 
 #' @return It returns an object of class \code{ggplot} with the graph.
 #'
-#' @rdname simPlot_individuals
+#' @rdname simAnimate_individuals
 #'
-#' @name simPlot_individuals
+#' @name simAnimate_individuals
 #'
 #' @examples
 #' filename_map      <- c(xml= system.file("extdata/input_files", "map.xml", package = "simutils"),  xsd= '')
@@ -49,17 +49,14 @@
 #'
 #'simData <- read_simData(filenames, crs = 2062)
 #'
-#'simPlot_individuals(simData,
-#'                    time = 0,
-#'                    size = 1,
-#'                    plot_title = 'Individuals at t=0')
 #'
 #'
 #' @import simutils ggplot2 stars sf ggrepel viridis data.table dplyr
 #'
 #' @export
-simPlot_individuals <- function(simData.list, 
+simAnimate_individuals <- function(simData.list, 
                             time = 0,
+                            individuals_subset, 
                             size = 1, size_var = NULL, size_name = NULL,
                             plot_title = ""){
 
@@ -75,10 +72,13 @@ simPlot_individuals <- function(simData.list,
   
   map <- simData$map
   network <- simData$network
-  network <- cbind(network, st_coordinates(network))
+  network$t <- NULL
   
   individuals <- simData$individuals
-  individuals_t <- individuals[individuals$t == time,]
+  individuals <- individuals[
+    individuals$t %in% time,][
+      individuals$`Person ID` %in% individuals_subset,]
+  individuals_subset <- individuals[!is.na(individuals$t),]
   
   
   p <- p + 
@@ -92,13 +92,15 @@ simPlot_individuals <- function(simData.list,
   }
   
   p <- p +
-    geom_sf(data = individuals_t, aes(color = factor(nDev))) +
+    geom_sf(data = individuals_subset, aes(color = factor(nDev)), size = 3) +
     coord_sf() +
     theme_bw() +
     labs(title = plot_title, x = '', y = '', color = 'No. Devices') +
     theme(plot.title = element_text(size = 16, hjust = 0.5),
           axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 7),
-          axis.text.y = element_text(vjust = 0.5, hjust=1, size = 7))
+          axis.text.y = element_text(vjust = 0.5, hjust=1, size = 7)) +
+    transition_states(states = t) +
+    ease_aes('linear')
   
 
   return(p)

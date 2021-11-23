@@ -48,13 +48,13 @@ library(av) #av_renderer
  simData <- simutils::read_simData(filenames, crs = 2062)
 # map
 # Subregions
-simplot_territory(simData, 
+simPlot_territory(simData, 
                   aggre_level = 2, 
                   aggre_name = "Subregions", 
                   plot_title = 'Territorial map for simulation')
 
 # Regions
-simplot_territory(simData, 
+simPlot_territory(simData, 
                   aggre_level = 1, 
                   aggre_name = "Regions", 
                   plot_title = 'Territorial map for simulation')
@@ -62,7 +62,7 @@ simplot_territory(simData,
 
 
 # network on map
-simplot_network(simData, 
+simPlot_network(simData, 
                 map.plot = TRUE,
                 aggre_level = 1, 
                 aggre_name = "Regions", 
@@ -73,7 +73,7 @@ simplot_network(simData,
 
 
 # network on map with coverage cells
-simplot_network(simData, 
+simPlot_network(simData, 
                 map.plot = TRUE,
                 aggre_level = 2, 
                 aggre_name = "Subregions", 
@@ -84,7 +84,7 @@ simplot_network(simData,
 
 
 # network on map with coverage cells (attenuation factor)
-simplot_network(simData, 
+simPlot_network(simData, 
                 map.plot = TRUE,
                 aggre_level = 2, 
                 aggre_name = "Subregions", 
@@ -95,7 +95,7 @@ simplot_network(simData,
 
 
 # network with RSS grid
-simplot_network(simData, 
+simPlot_network(simData, 
                 map.plot = FALSE,
                 coverage.plot = TRUE,
                 size = 1,
@@ -105,51 +105,25 @@ simplot_network(simData,
 
 
 # individuals on map (initial time)
-simplot_individuals(simData, 
+simPlot_individuals(simData, 
                 time = 0,
                 size = 1,
                 plot_title = 'Individuals at t=0')
 
-map <- simData$map
-individuals <- simData$individuals
-individuals_t0 <- individuals[individuals$t == 0,]
-ggplot() +
-  geom_sf(data = map, fill = NA) +
-  geom_sf(data = network, size = 1) +
-  geom_sf(data = individuals_t0, aes(color = factor(nDev))) +
-  coord_sf() +
-  theme_bw() +
-  labs(title = 'Individuals at t=0', x = '', y = '', color = 'No. Devices') +
-  theme(plot.title = element_text(size = 16, hjust = 0.5),
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 7),
-        axis.text.y = element_text(vjust = 0.5, hjust=1, size = 7))
 
 
-# individuals on map
+# individuals on map (animation)
 time <- unique(simData$individuals$t)
 time_subset <- sort(time[sample(x = c(1:600), 80)])
-map <- simData$map
-network <- simData$network
-network$t <- NULL
-individuals <- simData$individuals
-individuals <- individuals[
-  individuals$t %in% time_subset,][
-  #individuals$`Person ID` %in% c('778', '771'),]
-    individuals$`Person ID` %in% c('661', '378'),]
-individuals_subset <- individuals[!is.na(individuals$t),]
+indiv_subset <- c('661', '378')
 
-anim <- ggplot() +
-  geom_sf(data = map, fill = NA) +
-  geom_sf(data = network, size = 1) +
-  geom_sf(data = individuals_subset, aes(color = factor(nDev)), size = 3) +
-  coord_sf() +
-  theme_bw() +
-  labs(title = 'Individuals at time = {closest_state}', x = '', y = '', color = 'No. Devices') +
-  theme(plot.title = element_text(size = 16, hjust = 0.5),
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 7),
-        axis.text.y = element_text(vjust = 0.5, hjust=1, size = 7)) +
-  transition_states(states = t) +
-  ease_aes('linear')
+anim <- simAnimate_individuals(simData, 
+                    time = time_subset,
+                    individuals_subset = indiv_subset,
+                    size = 1,
+                    plot_title = 'Individuals at time = {closest_state}')
+
+
 
 ### SAVE ANIMATION AS GIF
 animate(
@@ -176,13 +150,5 @@ animate(
 )
 
 
-
-### network parameters plot sin t, mno_ID...
-network <- simData$network
-network$t <- NULL
-network$`Antenna ID` <- NULL
-network$`MNO ID` <- NULL
-network$mno_name <- NULL
-plot(network)
 
 

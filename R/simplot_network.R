@@ -26,9 +26,9 @@
 #' 
 #' @return It returns an object of class \code{ggplot} with the graph.
 #'
-#' @rdname simplot_network
+#' @rdname simPlot_network
 #'
-#' @name simplot_network
+#' @name simPlot_network
 #'
 #' @examples
 #' filename_map      <- c(xml= system.file("extdata/input_files", "map.xml", package = "simutils"),  xsd= '')
@@ -57,7 +57,7 @@
 #'
 #'simData <- read_simData(filenames, crs = 2062)
 #'
-#'simplot_network(simData, 
+#'simPlot_network(simData, 
 #'                map.plot = TRUE,
 #'                aggre_level = 1, 
 #'                aggre_name = "Regions", 
@@ -71,7 +71,7 @@
 #' @import simutils ggplot2 stars sf ggrepel viridis data.table dplyr
 #'
 #' @export
-simplot_network <- function(simData.list, 
+simPlot_network <- function(simData.list, 
                             map.plot, aggre_level = NULL, aggre_name = NULL, 
                             coverage.plot, 
                             grid.plot,

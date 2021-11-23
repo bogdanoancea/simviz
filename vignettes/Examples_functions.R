@@ -105,6 +105,11 @@ simplot_network(simData,
 
 
 # individuals on map (initial time)
+simplot_individuals(simData, 
+                time = 0,
+                size = 1,
+                plot_title = 'Individuals at t=0')
+
 map <- simData$map
 individuals <- simData$individuals
 individuals_t0 <- individuals[individuals$t == 0,]

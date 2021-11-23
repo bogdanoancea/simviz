@@ -1,4 +1,4 @@
-#' @title Visualization of simulator inputs and outputs: Territory information.
+#' @title Visualization of simulator inputs and outputs: Individuals information.
 #'
 #' @description Make the visualization of the objects obtained from the MNO data simulator 
 #' after being managed by simutils package.
@@ -6,17 +6,21 @@
 #' @param simData.list a list with the objects from the simulator created 
 #' by the \code{read_simData} function from simutils R package.
 #' 
-#' @param aggre_level numeric, until now 1 for regions and 2 for subregions.
+#' @param time numeric, the specific time to be plotted.
 #' 
-#' @param aggre_name string with the name of the aggregation level.
+#' @param size numeric, parameter of geom_sf().
+#' 
+#' @param size_var string, the name of the variable to be used for the size of points.
+#' 
+#' @param size_name string, the title of legend for size_var.
 #' 
 #' @param plot_title string with the general title of the plot.
-#'  
+#' 
 #' @return It returns an object of class \code{ggplot} with the graph.
 #'
-#' @rdname simplot_territory
+#' @rdname simplot_individuals
 #'
-#' @name simplot_territory
+#' @name simplot_individuals
 #'
 #' @examples
 #' filename_map      <- c(xml= system.file("extdata/input_files", "map.xml", package = "simutils"),  xsd= '')
@@ -45,57 +49,62 @@
 #'
 #'simData <- read_simData(filenames, crs = 2062)
 #'
-#'simplot_territory(simData, 
-#'                  aggre_level = 1, 
-#'                  aggre_name = "Regions", 
-#'                  plot_title = 'Territorial map for simulation')
+#'simplot_network(simData, 
+#'                map.plot = TRUE,
+#'                aggre_level = 1, 
+#'                aggre_name = "Regions", 
+#'                coverage.plot = FALSE,
+#'                size_var = "power", 
+#'                size_name = "Power",
+#'                grid.plot = FALSE,
+#'                plot_title = 'Antenna positions')
 #'
 #'
-#' @import simutils ggplot2 stars sf data.table dplyr
+#' @import simutils ggplot2 stars sf ggrepel viridis data.table dplyr
 #'
 #' @export
-simplot_territory <- function(simData.list, aggre_level, aggre_name, plot_title){
+simplot_individuals <- function(simData.list, 
+                            time = 0,
+                            size = 1, size_var = NULL, size_name = NULL,
+                            plot_title = ""){
 
   if(is.null(simData.list$map)){
     stop("It is mandatory to have a map of the territory for the visualization.")
   }
+  if(is.null(simData.list$network)){
+    stop("It is mandatory to have network information for the visualization.")
+  }
+  
+  
+  p <- ggplot() 
   
   map <- simData$map
- 
+  network <- simData$network
+  network <- cbind(network, st_coordinates(network))
   
-  if(aggre_level == 1){
-    
-    map <- map %>%
-      group_by(Region_long) %>%
-      summarize(geometry = st_union(geometry))
-    map <- cbind(map, st_coordinates(st_centroid(map)))
-    p <- ggplot() +
-      geom_sf(data = map, aes(fill = Region_long), alpha = 0.2) +
-      coord_sf() +
-      geom_label(data = map, aes(X, Y, label = Region_long), size = 5, fontface = "bold") +
-      scale_fill_discrete(name = aggre_name) +
-      theme_bw() +
-      labs(title = plot_title, x = '', y = '') +
-      theme(plot.title = element_text(size = 16, hjust = 0.5))
-    
-    
+  individuals <- simData$individuals
+  individuals_t <- individuals[individuals$t == time,]
+  
+  
+  p <- p + 
+    geom_sf(data = map, fill = NA) 
+  
+  if(!is.null(size_var)){
+    p <- p +  geom_sf(data = network, aes(size = get(size_var)))
+  }
+  if(is.null(size_var) & !is.null(size)){
+    p <- p +  geom_sf(data = network, size = size)
   }
   
-  if(aggre_level == 2){
-    
-    map <- cbind(map, st_coordinates(st_centroid(map)))
-    
-    p <- ggplot() +
-      geom_sf(data = map, aes(fill = Subregion_long), alpha = 0.2) +
-      coord_sf() +
-      geom_label(data = map, aes(X, Y, label = Subregion_long), size = 5, fontface = "bold") +
-      scale_fill_discrete(name = aggre_name) +
-      theme_bw() +
-      labs(title = plot_title, x = '', y = '') +
-      theme(plot.title = element_text(size = 16, hjust = 0.5))
-    
-    
-  }
+  p <- p +
+    geom_sf(data = individuals_t, aes(color = factor(nDev))) +
+    coord_sf() +
+    theme_bw() +
+    labs(title = plot_title, x = '', y = '', color = 'No. Devices') +
+    theme(plot.title = element_text(size = 16, hjust = 0.5),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 7),
+          axis.text.y = element_text(vjust = 0.5, hjust=1, size = 7))
+  
 
   return(p)
   

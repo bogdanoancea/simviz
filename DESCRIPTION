@@ -41,3 +41,4 @@ Collate:
     'simplot.R'
     'simplot_territory.R'
     'simplot_network.R'
+    'simplot_individuals.R'

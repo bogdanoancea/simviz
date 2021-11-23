@@ -1,6 +1,6 @@
-#' Visualization of simulator outputs.
+#' @title Visualization of simulator outputs.
 #'
-#' Make the visualization of the objects obtained from the MNO data simulator.
+#' @description Make the visualization of the objects obtained from the MNO data simulator.
 #'
 #' @param simElements a list with the output objects from the simulator created 
 #' by the \code{create_simElements} function.

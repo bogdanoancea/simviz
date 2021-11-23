@@ -1,6 +1,6 @@
-#' Visualization of simulator inputs and outputs: Territory information.
+#' @title Visualization of simulator inputs and outputs: Network information.
 #'
-#' Make the visualization of the objects obtained from the MNO data simulator 
+#' @description Make the visualization of the objects obtained from the MNO data simulator 
 #' after being managed by simutils package.
 #'
 #' @param simData.list a list with the objects from the simulator created 
@@ -137,9 +137,7 @@ simplot_network <- function(simData.list,
       if(is.null(size_var) & !is.null(size)){
         p <- p +  geom_sf(data = network, size = size)
       }
-      if(!is.null(size_var) & !is.null(size)){
-        p <- p +  geom_sf(data = network, size = 1)
-      }
+
       
       if(coverage.plot){
         

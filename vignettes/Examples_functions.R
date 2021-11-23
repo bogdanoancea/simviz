@@ -48,123 +48,62 @@ library(av) #av_renderer
  simData <- simutils::read_simData(filenames, crs = 2062)
 # map
 # Subregions
-map <- simData$map
-map <- cbind(map, st_coordinates(st_centroid(map)))
-ggplot() +
-  geom_sf(data = map, aes(fill = Subregion_long), alpha = 0.2) +
-  coord_sf() +
-  geom_label(data = map, aes(X, Y, label = Subregion_long), size = 5, fontface = "bold") +
-  scale_fill_discrete(name = "Subregions") +
-  theme_bw() +
-  labs(title = 'Territorial map for simulation', x = '', y = '') +
-  theme(plot.title = element_text(size = 16, hjust = 0.5))
+simplot_territory(simData, 
+                  aggre_level = 2, 
+                  aggre_name = "Subregions", 
+                  plot_title = 'Territorial map for simulation')
 
 # Regions
-map <- simData$map
-map <- map %>%
-  group_by(Region_long) %>%
-  summarize(geometry = st_union(geometry))
-map <- cbind(map, st_coordinates(st_centroid(map)))
-ggplot() +
-  geom_sf(data = map, aes(fill = Region_long), alpha = 0.2) +
-  coord_sf() +
-  geom_label(data = map, aes(X, Y, label = Region_long), size = 5, fontface = "bold") +
-  scale_fill_discrete(name = "Regions") +
-  theme_bw() +
-  labs(title = 'Territorial map for simulation', x = '', y = '') +
-  theme(plot.title = element_text(size = 16, hjust = 0.5))
+simplot_territory(simData, 
+                  aggre_level = 1, 
+                  aggre_name = "Regions", 
+                  plot_title = 'Territorial map for simulation')
 
 
 
 # network on map
-map <- simData$map
-network <- simData$network
-network <- cbind(network, st_coordinates(network))
-ggplot() +
-  geom_sf(data = map, aes(fill = Subregion_long), alpha = 0.2) +
-  geom_sf(data = network, aes(size = power)) +
-  geom_text_repel(data = network, aes(x = X, y = Y, label = Antenna.ID), fontface = "bold") +
-  scale_fill_discrete(name = "Subregions") +
-  theme_bw() +
-  labs(title = 'Antenna positions', x = '', y = '') +
-  theme(plot.title = element_text(size = 16, hjust = 0.5))
+simplot_network(simData, 
+                map.plot = TRUE,
+                aggre_level = 1, 
+                aggre_name = "Regions", 
+                coverage.plot = FALSE,
+                size_var = "power", size_name = "Power",
+                grid.plot = FALSE,
+                plot_title = 'Antenna positions')
 
 
 # network on map with coverage cells
-map <- simData$map
-network <- simData$network
-network <- cbind(network, st_coordinates(network))
-coverage <- simData$coverage
-ggplot() +
-  geom_sf(data = map, aes(fill = Subregion_long), alpha = 0.2) +
-  geom_sf(data = network, aes(size = power)) +
-  geom_text_repel(data = network, aes(x = X, y = Y, label = Antenna.ID), fontface = "bold") +
-  geom_sf(data = coverage, fill = NA) +
-  scale_fill_discrete(name = "Subregions") +
-  theme_bw() +
-  labs(title = 'Antenna coverage cells', x = '', y = '') +
-  theme(plot.title = element_text(size = 16, hjust = 0.5))
+simplot_network(simData, 
+                map.plot = TRUE,
+                aggre_level = 2, 
+                aggre_name = "Subregions", 
+                coverage.plot = TRUE,
+                size_var = "power", size_name = "Power",
+                grid.plot = FALSE,
+                plot_title = 'Antenna coverage cells')
 
 
 # network on map with coverage cells (attenuation factor)
-map <- simData$map
-network <- simData$network
-network <- cbind(network, st_coordinates(network))
-coverage <- simData$coverage
-ggplot() +
-  geom_sf(data = map, aes(fill = Subregion_long), alpha = 0.2) +
-  geom_sf(data = network, aes(size = attenuationfactor)) +
-  geom_text_repel(data = network, aes(x = X, y = Y, label = Antenna.ID), fontface = "bold") +
-  geom_sf(data = coverage, fill = NA) +
-  scale_fill_discrete(name = "Subregions") +
-  scale_size(name = "Attenuation Factor") +
-  theme_bw() +
-  labs(title = 'Antenna coverage cells', x = '', y = '') +
-  theme(plot.title = element_text(size = 16, hjust = 0.5))
+simplot_network(simData, 
+                map.plot = TRUE,
+                aggre_level = 2, 
+                aggre_name = "Subregions", 
+                plot_title = 'Antenna coverage cells',
+                coverage.plot = TRUE,
+                size_var = "attenuationfactor", size_name = "Attenuation Factor",
+                grid.plot = FALSE)
 
 
 # network with RSS grid
-map <- simData$map
-network <- simData$network
-network <- cbind(network, st_coordinates(network))
-network <- cbind(network, cell_idx = seq_along(network$Antenna.ID))
-
-coverage <- simData$coverage
-coverage <- cbind(coverage, cell_idx = seq_along(coverage$AntennaId))
-
-grid <- simData$grid
-names(attr(grid, 'dimensions'))[3] <- 'cell_idx'
-cell_labels <- network$Antenna.ID
-cell_names <- seq(along = cell_labels)
-names(cell_labels) <- cell_names
-
-ggplot() +
-  geom_stars(data = grid, interpolate = TRUE) +
-  geom_sf(data = network, size = 1) +
-  geom_sf(data = coverage, fill = NA) +
-  coord_sf() +
-  facet_wrap(~ cell_idx, labeller = labeller(cell_idx = cell_labels)) +
-  scale_fill_gradient(low = "white", high = "black", na.value = 'white', name = 'RSS (dBm)') +
-  theme_bw() +
-  labs(title = 'RSS per Radio Cell', x = '', y = '', ) +
-  theme(plot.title = element_text(size = 16, hjust = 0.5),
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 7),
-        axis.text.y = element_text(vjust = 0.5, hjust=1, size = 7))
+simplot_network(simData, 
+                map.plot = FALSE,
+                coverage.plot = TRUE,
+                size = 1,
+                grid.plot = TRUE,
+                plot_title = 'RSS per Radio Cell')
 
 
-ggplot() +
-  geom_stars(data = grid[, , , 10], interpolate = TRUE) +
-  geom_sf(data = network[10,], size = 1) +
-  geom_sf(data = coverage[10,], fill = NA) +
-  coord_sf() +
-  facet_wrap(~ cell_idx, labeller = labeller(cell_idx = cell_labels)) +
-  scale_fill_gradient(low = "white", high = "black", na.value = 'white', name = 'RSS (dBm)') +
-  theme_bw() +
-  labs(title = 'RSS of Radio Cell 18', x = '', y = '', ) +
-  theme(plot.title = element_text(size = 16, hjust = 0.5),
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 7),
-        axis.text.y = element_text(vjust = 0.5, hjust=1, size = 7))
- 
+
 # individuals on map (initial time)
 map <- simData$map
 individuals <- simData$individuals

@@ -24,36 +24,34 @@
 #' @name simplot
 #'
 #' @examples
-#' filename_map      <- system.file("extdata/input_files", "map.wkt", package = "simviz")
-#' filename_network  <- c(csv = system.file("extdata/output_files", "antennas.csv", package = "simviz"),
-#'                       xml = system.file("extdata/metadata/output_files", "antennas_dict.xml", package = "simviz"))
+#' filename_map      <- c(xml= system.file("extdata/input_files", "map.xml", package = "simutils"),  xsd= '')
 #'
-#' filename_coverage <- c(csv = system.file("extdata/output_files", "AntennaCells_MNO1.csv", package = "simviz"),
-#'                       xml = system.file("extdata/metadata/output_files", "AntennaCells_dict.xml", package = "simviz"))
+#'filename_network  <- c(csv= system.file("extdata/output_files/antennas.csv", package = "simutils"),
+#'  xml= system.file("extdata/metadata/output_files/antennas_dict.xml", package = "simutils"))
 #'
-#' filename_grid     <- c(csv = system.file("extdata/output_files", "grid.csv", package = "simviz"),
-#'                       xml = system.file("extdata/metadata/output_files", "grid_dict.xml", package = "simviz"))
+#'filename_signal <- c(csv= system.file("extdata/output_files/SignalMeasure_MNO1.csv", package = "simutils"),  
+#'  xml= system.file("extdata/metadata/output_files/SignalMeasure_dict.xml", package = "simutils"))
 #'
-#' filename_individ  <- c(csv = system.file("extdata/output_files", "persons.csv", package = "simviz"),
-#'                       xml = system.file("extdata/metadata/output_files", "persons_dict.xml", package = "simviz"))   
+#'filename_coverage <- c(csv= system.file("extdata/output_files", "AntennaCells_MNO1.csv", package = "simutils"),
+#'  xml= system.file("extdata/metadata/output_files/AntennaCells_dict.xml", package = "simutils"))
 #'
-#' filenames <- list(
-#'  map                = filename_map,
-#'  network_parameters = filename_network,
-#'  coverage_cells     = filename_coverage,
-#'  grid               = filename_grid,
-#'  individuals        = filename_individ)
+#'filename_grid <- c(csv= system.file("extdata/output_files/grid.csv", package = "simutils"),
+#'  xml= system.file("extdata/metadata/output_files/grid_dict.xml", package = "simutils")) 
 #'
-#' simElem.list <- simutils::create_simElements(filenames, crs = 2062)
-#' 
-#' simplot(simElem.list, 
-#'    control.map = list(size = 1.5),
-#'    control.grid = list(fill = NA),
-#'    control.coverage = list(alpha = 0.1, fill = "power"),
-#'    control.network = list(label = "Antenna ID", nudge_x = 1, nudge_y = 1),
-#'    control.individuals = list(t = 0, animate = FALSE))
+#'filename_individ <- c(csv= system.file("extdata/output_files/persons_dash.csv", package = "simutils"),
+#'  xml= system.file("extdata/metadata/output_files/persons_dash_dict.xml", package = "simutils"))   
 #'
-#' @import ggplot2 stars gganimate viridis data.table
+#'filenames <- list(map                = filename_map,  
+#'                  network_parameters = filename_network,
+#'                  signal             = filename_signal,
+#'                  coverage_cells     = filename_coverage,
+#'                  grid               = filename_grid,
+#'                  individuals        = filename_individ)
+#'
+#'simData <- read_simData(filenames, crs = 2062)
+#'
+#'
+#' @import simutils ggplot2 stars gganimate viridis data.table
 #'
 #' @export
 simplot <- function(simElem.list, control.map = list(),
